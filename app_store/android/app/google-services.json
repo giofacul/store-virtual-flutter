@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1017077592316",
+    "project_id": "virtual-store-flutter-e12a6",
+    "storage_bucket": "virtual-store-flutter-e12a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017077592316:android:51435b56eec62f7337a779",
+        "android_client_info": {
+          "package_name": "com.inforizz.app_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017077592316-3nrke0mqp75bnv5b46949qqu1b137amf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBltYaFGKQ8RDn8pvYczTmX8pxfS03bh-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017077592316-3nrke0mqp75bnv5b46949qqu1b137amf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
