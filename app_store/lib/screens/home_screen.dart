@@ -1,4 +1,6 @@
+import 'package:app_store/resources/strings.dart';
 import 'package:app_store/tabs/home_tab.dart';
+import 'package:app_store/tabs/product_tab.dart';
 import 'package:app_store/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
             drawer: CustomDrawer(
               pageController: _pageController,
             )),
+        Scaffold(
+          appBar: AppBar(
+            title: Text(Strings.productsDrawer),
+            centerTitle: true,
+          ),
+          drawer: CustomDrawer(pageController: _pageController,),
+          body: const ProductsTab(),
+        ),
       ],
     );
   }
