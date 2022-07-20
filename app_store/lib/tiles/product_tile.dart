@@ -9,16 +9,20 @@ class ProductTile extends StatefulWidget {
   const ProductTile({Key? key, this.type, this.dataProduct}) : super(key: key);
 
   @override
-  State<ProductTile> createState() => _ProductTileState();
+  State<ProductTile> createState() => _ProductTileState(dataProduct);
 }
 
 class _ProductTileState extends State<ProductTile> {
+  final ProductData? dataProduct;
+
+  _ProductTileState(this.dataProduct);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ProductScreen(productData: widget.dataProduct,)));
+              builder: (context) => ProductScreen(productData: dataProduct,)));
         },
         child: Card(
           child: widget.type == 'grid'
