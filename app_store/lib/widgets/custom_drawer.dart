@@ -1,7 +1,9 @@
+import 'package:app_store/models/user_model.dart';
 import 'package:app_store/resources/strings.dart';
 import 'package:app_store/screens/login_screen.dart';
 import 'package:app_store/tiles/drawer_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CustomDrawer extends StatelessWidget {
   final PageController? pageController;
@@ -44,32 +46,44 @@ class CustomDrawer extends StatelessWidget {
                               color: Colors.white),
                         )),
                     Positioned(
-                      left: 0,
-                      bottom: 0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            Strings.welcomeUser,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                            },
-                            child: Text(
-                              Strings.loggedOrSignUp,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                        left: 0,
+                        bottom: 0,
+                        child: ScopedModelDescendant<UserModel>(
+                          builder: (context, child, model) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${Strings.welcomeUser} ${!model.isLoggedIn()! ? '' : model.userData['name']}',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    if(!model.isLoggedIn()!){
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LoginScreen()));
+                                    } else {
+                                      model.signOut();
+                                    }
+
+                                  },
+                                  child: Text(
+                                    !model.isLoggedIn()! ?
+                                    Strings.loggedOrSignUp : Strings.drawerSignOut,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        )),
                   ],
                 ),
               ),

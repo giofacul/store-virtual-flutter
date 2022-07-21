@@ -3,6 +3,7 @@ class Strings {
   static const String storeNews = "Novidades";
   static const String welcomeUser = "Olá ";
   static const String loggedOrSignUp = "Entre ou cadastre-se";
+  static const String drawerSignOut = "Sair";
   static const String initDrawer = "Início";
   static const String productsDrawer = "Produtos";
   static const String storesDrawer = "Lojas";
@@ -25,4 +26,9 @@ class Strings {
   static const String invalidPassword = "Senha inválida";
   static const String invalidName = "Nome inválido";
   static const String invalidAdress = "Endereço inválido";
+  static const String createSuccessUser = "Usuário criado com sucesso";
+  static const String createFailedUser = "Falha ao criar usuário";
+  static const String loggedFailedUser = "Falha ao entrar";
+  static const String emailRecoverPassword = "Insira seu E-mail para recuperar senha";
+  static const String emailAnalizedPassword = "Verifique seu E-mail";
 }
