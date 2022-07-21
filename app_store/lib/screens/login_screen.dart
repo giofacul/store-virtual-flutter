@@ -56,7 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: _emailController,
                         validator: (text) {
-                          if (text!.isEmpty || !text.contains("@")) {
+                          //TODO MELHORAR A VERIFICAÇÃO DE EMAIL LOGI
+                          if (text!.isEmpty || !text.contains("@") || !text.contains('.')) {
                             return Strings.invalidEmail;
                           }
                         },
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: _passController,
                         validator: (text) {
-                          if (text!.isEmpty || text.length < 4) {
+                          if (text!.isEmpty || text.length < 6) {
                             return Strings.invalidPassword;
                           }
                         },

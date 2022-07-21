@@ -12,7 +12,8 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   final _nameController = TextEditingController();
 
@@ -31,8 +32,8 @@ class _SignupScreenState extends State<SignupScreen> {
             title: const Text(Strings.textPageCreateAccount),
             centerTitle: true,
           ),
-          body:
-              ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+          body: ScopedModelDescendant<UserModel>(
+              builder: (context, child, model) {
             if (model.isLoading!) {
               return const Center(child: CircularProgressIndicator());
             } else {
@@ -57,7 +58,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         controller: _emailController,
                         validator: (text) {
-                          if (text!.isEmpty || !text.contains('@')) {
+                          //TODO MELHORAR A VERIFICAÇÃO DE EMAIL CADASTRO
+                          if (text!.isEmpty ||
+                              !text.contains('@') ||
+                              !text.contains('.')) {
                             return Strings.invalidEmail;
                           }
                           return null;
@@ -70,7 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       TextFormField(
                         controller: _passController,
                         validator: (text) {
-                          if (text!.isEmpty || text.length < 4) {
+                          if (text!.isEmpty || text.length < 6) {
                             return Strings.invalidPassword;
                           }
                           return null;
@@ -108,6 +112,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               };
                               // Navigator.of(context).push(MaterialPageRoute(
                               //     builder: (context) => const HomeScreen()));
+                              print(
+                                  'DADOS ENVIADOS $userData, SENHA ${_passController.text}');
                               model.signUp(
                                   userData: userData,
                                   pass: _passController.text,
@@ -130,18 +136,20 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void _onSuccess() {
+  _onSuccess() {
+    print('ENTROU NO SUCCESS DO SIGNUP');
     _scaffoldKey.currentState?.showSnackBar(SnackBar(
       content: const Text(Strings.createSuccessUser),
       backgroundColor: Theme.of(context).primaryColor,
       duration: const Duration(seconds: 2),
     ));
     Future.delayed(const Duration(seconds: 2)).then((_) {
-       Navigator.of(context).pop();
-     });
+      Navigator.of(context).pop();
+    });
   }
 
-  void _onFailed() {
+  _onFailed() {
+    print('ENTROU NO FAILED DO SIGNUP');
     _scaffoldKey.currentState!.showSnackBar(const SnackBar(
       content: Text(Strings.createFailedUser),
       backgroundColor: Colors.redAccent,

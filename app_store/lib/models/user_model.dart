@@ -13,7 +13,6 @@ class UserModel extends Model {
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
-
     _loadCurrentUser();
   }
 
@@ -22,9 +21,11 @@ class UserModel extends Model {
       required String pass,
       required VoidCallback onSuccess,
       required VoidCallback onFailed}) {
+    print('ENTROU NO SIGNUP');
     isLoading = true;
     notifyListeners();
 
+    print('EMAIL E SENHA PARA SALVAR ${userData['email']} , $pass');
     _firebaseAuth
         .createUserWithEmailAndPassword(
             email: userData['email'], password: pass)
@@ -37,6 +38,7 @@ class UserModel extends Model {
       isLoading = false;
       notifyListeners();
     }).catchError((e) {
+      print('ENTROU NO SIGNUP FALHA');
       onFailed();
       isLoading = false;
       notifyListeners();
@@ -56,6 +58,7 @@ class UserModel extends Model {
         .then((user) async {
       firebaseUser = user;
 
+      //verifica se já existe
       await _loadCurrentUser();
 
       onSuccess();
@@ -83,8 +86,8 @@ class UserModel extends Model {
     this.userData = userData;
     FirebaseFirestore.instance
         .collection('users')
-        // .doc(_firebaseAuth.currentUser?.uid)
-        .doc(firebaseUser?.user?.uid)
+        .doc(_firebaseAuth.currentUser?.uid)
+        // .doc(firebaseUser?.user?.uid)
         .set(userData);
   }
 
@@ -93,7 +96,7 @@ class UserModel extends Model {
   }
 
   Future<void> _loadCurrentUser() async {
-    firebaseUser ?? _firebaseAuth.currentUser! as UserCredential?;
+    firebaseUser ??= _firebaseAuth.currentUser! as UserCredential;
     if (firebaseUser != null) {
       if (userData['name'] == null) {
         DocumentSnapshot docUser = await FirebaseFirestore.instance
