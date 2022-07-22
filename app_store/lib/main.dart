@@ -1,3 +1,4 @@
+import 'package:app_store/models/cart_model.dart';
 import 'package:app_store/models/user_model.dart';
 import 'package:app_store/resources/strings.dart';
 import 'package:app_store/screens/home_screen.dart';
@@ -35,16 +36,22 @@ class MyApp extends StatelessWidget {
 
     MaterialColor colorCustom = MaterialColor(0xFF880E4F, color);
 
-    return ScopedModel(
+    return ScopedModel<UserModel>(
         model: UserModel(),
-        child: MaterialApp(
-          //TODO NAME TITLE STORE
-          title: Strings.storeName,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-              primarySwatch: colorCustom,
-              primaryColor: const Color.fromARGB(255, 239, 0, 230)),
-          home: HomeScreen(),
-        ));
+        child:
+            ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+          return ScopedModel<CartModel>(
+            model: CartModel(model),
+            child: MaterialApp(
+              //TODO NAME TITLE STORE
+              title: Strings.storeName,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                  primarySwatch: colorCustom,
+                  primaryColor: const Color.fromARGB(255, 239, 0, 230)),
+              home: HomeScreen(),
+            ),
+          );
+        }));
   }
 }

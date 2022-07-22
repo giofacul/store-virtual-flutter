@@ -17,4 +17,14 @@ class ProductData {
     images = documentSnapshot.get('images');
     sizes = documentSnapshot.get('sizes');
   }
+
+  Map<String, dynamic> toResumedMap(){
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+    };
+  }
+
+
 }

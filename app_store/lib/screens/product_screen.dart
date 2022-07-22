@@ -1,5 +1,9 @@
+import 'package:app_store/datas/cart_product.dart';
 import 'package:app_store/datas/product_data.dart';
+import 'package:app_store/models/cart_model.dart';
+import 'package:app_store/models/user_model.dart';
 import 'package:app_store/resources/strings.dart';
+import 'package:app_store/screens/login_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -139,10 +143,29 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 44,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: primaryColor),
-                    onPressed: size != null ? () {} : null,
-                    child: const Text(
-                      Strings.buttonAddProductCart,
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    onPressed: size != null
+                        ? () {
+                            if (UserModel.of(context)!.isLoggedIn()!) {
+                              //adiciona ao carrinho
+                              CartProduct? cartProduct = CartProduct();
+                              cartProduct.product_size = size;
+                              cartProduct.product_quantity = 1;
+                              cartProduct.product_id = productData?.id;
+                              cartProduct.product_categoty =
+                                  productData?.category;
+
+                              CartModel.of(context).addCartItem(cartProduct);
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                            }
+                          }
+                        : null,
+                    child: Text(
+                      UserModel.of(context)!.isLoggedIn()!
+                          ? Strings.buttonAddProductCart
+                          : Strings.loggedToBuy,
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),

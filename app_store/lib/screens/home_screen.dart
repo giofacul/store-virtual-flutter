@@ -1,6 +1,8 @@
 import 'package:app_store/resources/strings.dart';
+import 'package:app_store/screens/cart_screen.dart';
 import 'package:app_store/tabs/home_tab.dart';
 import 'package:app_store/tabs/product_tab.dart';
+import 'package:app_store/widgets/cart_button.dart';
 import 'package:app_store/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -22,17 +24,23 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         //TODO SET PAGES IN ORDER TO DRAWER NAVIGATION
         Scaffold(
-            body: const HomeTab(),
-            drawer: CustomDrawer(
-              pageController: _pageController,
-            )),
+          drawer: CustomDrawer(
+            pageController: _pageController,
+          ),
+          body: const HomeTab(),
+          floatingActionButton: const CartButton(),
+        ),
+
         Scaffold(
           appBar: AppBar(
-            title: Text(Strings.productsDrawer),
+            title: const Text(Strings.productsDrawer),
             centerTitle: true,
           ),
-          drawer: CustomDrawer(pageController: _pageController,),
+          drawer: CustomDrawer(
+            pageController: _pageController,
+          ),
           body: const ProductsTab(),
+          floatingActionButton: const CartButton(),
         ),
       ],
     );

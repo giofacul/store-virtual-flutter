@@ -31,4 +31,8 @@ class Strings {
   static const String loggedFailedUser = "Falha ao entrar";
   static const String emailRecoverPassword = "Insira seu E-mail para recuperar senha";
   static const String emailAnalizedPassword = "Verifique seu E-mail";
+  static const String loggedToBuy = "Entre para Comprar";
+  static const String myCart = "Meu Carrinho";
+  static const String quantityItemsReturnCart = "ITENS";
+  static const String oneItemsReturnCart = "ITEM";
 }

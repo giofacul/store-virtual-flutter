@@ -56,10 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: _emailController,
                         validator: (text) {
-                          //TODO MELHORAR A VERIFICAÇÃO DE EMAIL LOGI
-                          if (text!.isEmpty || !text.contains("@") || !text.contains('.')) {
+                          //TODO MELHORAR A VERIFICAÇÃO DE EMAIL LOGIN
+                          if (text!.isEmpty ||
+                              !text.contains("@") ||
+                              !text.contains('.')) {
                             return Strings.invalidEmail;
                           }
+                          return null;
                         },
                         decoration: const InputDecoration(
                             isDense: true, hintText: Strings.textEmail),
@@ -72,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (text!.isEmpty || text.length < 6) {
                             return Strings.invalidPassword;
                           }
+                          return null;
                         },
                         decoration: const InputDecoration(
                           hintText: Strings.textPassword,
@@ -84,18 +88,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                             onPressed: () {
-                              if (_emailController.text.isEmpty) {
+                              //TODO MELHORAR A RECUPERAÇÃO DE EMAIL VIA LOGIN
+                              //TODO CRIAR VALIDAÇÃO APENAS DE EMAIL, SEM CHAMAR FIREBASE
+                              if (_emailController.text.isEmpty ||
+                                  !_emailController.text.contains('@') ||
+                                  !_emailController.text.contains('.')) {
                                 _scaffoldKey.currentState!
                                     .showSnackBar(const SnackBar(
                                   content: Text(Strings.emailRecoverPassword),
                                   backgroundColor: Colors.redAccent,
                                   duration: Duration(seconds: 2),
                                 ));
-                              }else {
+                              } else {
+                                //TODO CRIAR ALERTA QUE PODE ESTAR NA CAIXA DE SPAN
                                 model.recoverPass(_emailController.text);
-                                _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                                  content: const Text(Strings.emailAnalizedPassword),
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                _scaffoldKey.currentState!
+                                    .showSnackBar(SnackBar(
+                                  content:
+                                      const Text(Strings.emailAnalizedPassword),
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
                                   duration: const Duration(seconds: 2),
                                 ));
                               }
@@ -113,12 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               // Navigator.of(context).push(MaterialPageRoute(
                               //     builder: (context) => const HomeScreen()));
+
+                              model.signIn(
+                                  email: _emailController.text,
+                                  pass: _passController.text,
+                                  onSuccess: _onSuccess,
+                                  onFail: _onFailed);
                             }
-                            model.signIn(
-                                email: _emailController.text,
-                                pass: _passController.text,
-                                onSuccess: _onSuccess,
-                                onFail: _onFailed);
                           },
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).primaryColor),

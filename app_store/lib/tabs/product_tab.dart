@@ -1,4 +1,4 @@
-import 'package:app_store/widgets/category_tile.dart';
+import 'package:app_store/tiles/category_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
