@@ -7,6 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 class CartModel extends Model {
   UserModel? userModel;
   List<CartProduct> listProducts = [];
+  bool? isLoading = false;
 
   CartModel(this.userModel);
 
@@ -38,4 +39,5 @@ class CartModel extends Model {
     listProducts.remove(cartProduct);
     notifyListeners();
   }
+
 }

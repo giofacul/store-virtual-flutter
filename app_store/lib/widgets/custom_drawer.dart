@@ -73,7 +73,7 @@ class CustomDrawer extends StatelessWidget {
                                   },
                                   child: Text(
                                     !model.isLoggedIn()! ?
-                                    Strings.loggedOrSignUp : Strings.drawerSignOut,
+                                    Strings.loggedOrSignUpDrawer : Strings.signOutDrawer,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,

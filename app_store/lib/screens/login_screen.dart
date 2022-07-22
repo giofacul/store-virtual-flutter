@@ -34,9 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => SignupScreen()));
                 },
-                child: const Text(
-                  Strings.createAccount,
-                  style: TextStyle(fontSize: 14, color: Colors.white),
+                child: Text(
+                  Strings.textPageCreateAccount.toUpperCase(),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ),
             ],

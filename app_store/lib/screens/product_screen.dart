@@ -3,6 +3,7 @@ import 'package:app_store/datas/product_data.dart';
 import 'package:app_store/models/cart_model.dart';
 import 'package:app_store/models/user_model.dart';
 import 'package:app_store/resources/strings.dart';
+import 'package:app_store/screens/cart_screen.dart';
 import 'package:app_store/screens/login_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 16,
                 ),
                 const Text(
-                  Strings.sizesReturnProduct,
+                  Strings.sizesReturnProductText,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
@@ -155,9 +156,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                   productData?.category;
 
                               CartModel.of(context).addCartItem(cartProduct);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const CartScreen()));
                             } else {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
+                                  builder: (context) => const LoginScreen()));
                             }
                           }
                         : null,
