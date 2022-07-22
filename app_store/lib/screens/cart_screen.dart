@@ -14,6 +14,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.myCart),
+        centerTitle: true,
         actions: [
           Container(
             alignment: Alignment.center,

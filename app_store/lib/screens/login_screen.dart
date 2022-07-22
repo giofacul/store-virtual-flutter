@@ -14,9 +14,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  //TODO REMOVER DADOS FIXADOS LOGIN
+  final _emailController = TextEditingController(text: 'giovannir.i307@gmail.com');
 
-  final _passController = TextEditingController();
+  final _passController = TextEditingController(text: '123456');
 
   final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -56,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: _emailController,
                         validator: (text) {
-                          //TODO MELHORAR A VERIFICAÇÃO DE EMAIL LOGIN
+                          //TODO MELHORAR A VERIFICATION DE EMAIL LOGIN
                           if (text!.isEmpty ||
                               !text.contains("@") ||
                               !text.contains('.')) {
