@@ -146,7 +146,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     style: ElevatedButton.styleFrom(primary: primaryColor),
                     onPressed: size != null
                         ? () {
-                            if (UserModel.of(context)!.isLoggedIn()!) {
+                            if (UserModel.of(context).isLoggedIn()!) {
                               //adiciona ao carrinho
                               CartProduct? cartProduct = CartProduct();
                               cartProduct.product_size = size;
@@ -165,7 +165,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           }
                         : null,
                     child: Text(
-                      UserModel.of(context)!.isLoggedIn()!
+                      UserModel.of(context).isLoggedIn()!
                           ? Strings.buttonAddProductCart
                           : Strings.loggedToBuy,
                       style: const TextStyle(fontSize: 18, color: Colors.white),

@@ -124,9 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              // Navigator.of(context).push(MaterialPageRoute(
-                              //     builder: (context) => const HomeScreen()));
-
                               model.signIn(
                                   email: _emailController.text,
                                   pass: _passController.text,

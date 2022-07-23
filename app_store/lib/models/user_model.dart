@@ -10,7 +10,7 @@ class UserModel extends Model {
 
   bool? isLoading = false;
 
-  static UserModel? of(BuildContext context) =>
+  static UserModel of(BuildContext context) =>
       ScopedModel.of<UserModel>(context);
 
   @override
@@ -24,11 +24,9 @@ class UserModel extends Model {
       required String pass,
       required VoidCallback onSuccess,
       required VoidCallback onFailed}) {
-    print('ENTROU NO SIGNUP');
     isLoading = true;
     notifyListeners();
 
-    print('EMAIL E SENHA PARA SALVAR ${userData['email']} , $pass');
     _firebaseAuth
         .createUserWithEmailAndPassword(
             email: userData['email'], password: pass)
