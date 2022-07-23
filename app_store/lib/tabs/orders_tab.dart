@@ -1,4 +1,3 @@
-
 import 'package:app_store/models/user_model.dart';
 import 'package:app_store/screens/login_screen.dart';
 import 'package:app_store/tiles/order_tile.dart';
@@ -25,8 +24,11 @@ class OrdersTab extends StatelessWidget {
               );
             } else {
               return ListView(
-                children:
-                    snapshot.data!.docs.map((doc) => OrderTile(orderId: doc.id)).toList(),
+                children: snapshot.data!.docs
+                    .map((doc) => OrderTile(orderId: doc.id))
+                    .toList()
+                    .reversed
+                    .toList(),
               );
             }
           });

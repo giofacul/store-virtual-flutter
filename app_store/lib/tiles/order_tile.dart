@@ -25,16 +25,33 @@ class OrderTile extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else {
+              int? status = snapshot.data!['status'];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Código do pedido ${snapshot.data?.id}',
+                    'Código do pedido: ${snapshot.data?.id}',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(_buildProductsText(snapshot.data!) ??
-                      'Dados não retornados')
+                      'Dados não retornados'),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Status do pedido:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildCircle('1', 'Preparação', status!, 1)!,
+                      //TODO AJUSTAR O WIDTH QUE TÁ CHUMBADO
+                      Container(height: 1, width: 40, color: Colors.black38),
+                      _buildCircle('2', 'Transporte', status, 2)!,
+                      Container(height: 1, width: 40, color: Colors.black38),
+                      _buildCircle('3', 'Entregue', status, 3)!,
+                    ],
+                  )
                 ],
               );
             }
@@ -48,10 +65,50 @@ class OrderTile extends StatelessWidget {
     String text = 'Descrição:\n';
     for (LinkedHashMap productOfList in documentSnapshot['products'] ?? '') {
       text +=
-          '${productOfList['product_quantity']} x ${productOfList['product']['title']}'
+      '${productOfList['product_quantity']} x ${productOfList['product']['title']}'
           ' (R\$ ${productOfList['product']['price'].toStringAsFixed(2)})\n';
       text += 'Total R\$ ${documentSnapshot['totalPrice'].toStringAsFixed(2)}';
       return text;
     }
+  }
+
+  Widget? _buildCircle(String title, String subtitle, int status,
+      int thisStatus) {
+    Color backColor;
+    Widget child;
+    if (status < thisStatus) {
+      backColor = Colors.grey;
+      child = Text(
+        title,
+        style: const TextStyle(color: Colors.white),
+      );
+    } else if (status == thisStatus) {
+      backColor = Colors.blueAccent;
+      child = Stack(
+        alignment: Alignment.center,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(color: Colors.white),
+          ),
+          const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          )
+        ],
+      );
+    } else {
+      backColor = Colors.green;
+      child = const Icon(Icons.check, color: Colors.white,);
+    }
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 20,
+          backgroundColor: backColor,
+          child: child,
+        ),
+        Text(subtitle)
+      ],
+    );
   }
 }
