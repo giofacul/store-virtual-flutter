@@ -1,6 +1,7 @@
 import 'package:app_store/resources/strings.dart';
 import 'package:app_store/screens/cart_screen.dart';
 import 'package:app_store/tabs/home_tab.dart';
+import 'package:app_store/tabs/orders_tab.dart';
 import 'package:app_store/tabs/product_tab.dart';
 import 'package:app_store/widgets/cart_button.dart';
 import 'package:app_store/widgets/custom_drawer.dart';
@@ -41,6 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: const ProductsTab(),
           floatingActionButton: const CartButton(),
+        ),
+        Scaffold(
+          appBar: AppBar(title: const Text(Strings.myRequestsDrawer), centerTitle: true,),
+          drawer: CustomDrawer(
+            pageController: _pageController,
+          ),
+          body: const OrdersTab(),
         ),
       ],
     );

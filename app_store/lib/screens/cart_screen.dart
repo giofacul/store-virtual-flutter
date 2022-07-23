@@ -2,6 +2,7 @@ import 'package:app_store/models/cart_model.dart';
 import 'package:app_store/models/user_model.dart';
 import 'package:app_store/resources/strings.dart';
 import 'package:app_store/screens/login_screen.dart';
+import 'package:app_store/screens/order_screen.dart';
 import 'package:app_store/tiles/cart_tile.dart';
 import 'package:app_store/widgets/cart_price.dart';
 import 'package:app_store/widgets/discount_card.dart';
@@ -90,7 +91,10 @@ class CartScreen extends StatelessWidget {
                   CartPrice(buy: () async {
                     String? orderId = await model.finishOrder();
                     if (orderId != null) {
-                      print('ORDER ID $orderId');
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => OrderScreen(
+                                orderId: orderId,
+                              )));
                     }
                   }),
                 ],
