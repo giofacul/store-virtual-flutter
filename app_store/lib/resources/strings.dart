@@ -10,6 +10,8 @@ class Strings {
   static const String productsDrawer = 'Produtos';
   static const String storesDrawer = 'Lojas';
   static const String myRequestsDrawer = 'Meus Pedidos';
+  static const String usersDrawer = 'Usuários';
+  static const String usersRequestsDrawer = 'Pedidos';
 
   // FIXED FIELDS
   static const String storeNews = 'Novidades';
@@ -17,6 +19,8 @@ class Strings {
   static const String textPageLogin = 'Fazer Login';
   static const String textEntry = 'Entrar';
   static const String loggedToBuy = 'Entre para Comprar';
+  static const String loggedToContinue = 'Entre para Continuar';
+  static const String loggedToAccompany = 'Faça o login para acompanhar';
   static const String buttonAddProductCart = 'Adicionar ao Carrinho';
   static const String myCart = 'Meu Carrinho';
   static const String noneProductInCart = 'Nenhum produto no carrinho!';

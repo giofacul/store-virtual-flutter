@@ -3,6 +3,7 @@ import 'package:app_store/resources/strings.dart';
 import 'package:app_store/screens/login_screen.dart';
 import 'package:app_store/tiles/drawer_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -61,19 +62,20 @@ class CustomDrawer extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    if(!model.isLoggedIn()!){
+                                    if (!model.isLoggedIn()!) {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   LoginScreen()));
                                     } else {
+                                      pageController?.jumpToPage(0);
                                       model.signOut();
                                     }
-
                                   },
                                   child: Text(
-                                    !model.isLoggedIn()! ?
-                                    Strings.loggedOrSignUpDrawer : Strings.signOutDrawer,
+                                    !model.isLoggedIn()!
+                                        ? Strings.loggedOrSignUpDrawer
+                                        : Strings.signOutDrawer,
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -114,6 +116,35 @@ class CustomDrawer extends StatelessWidget {
                 pageController: pageController,
                 page: 3,
               ),
+              ScopedModelDescendant<UserModel>(
+                builder: (_, __, userModel) {
+                  if (userModel != null) {
+                    if (userModel.adminEnabled) {
+                      return Column(
+                        children: [
+                          const Divider(thickness: 2),
+                          DrawerTile(
+                            iconData: Icons.settings,
+                            text: Strings.usersDrawer,
+                            pageController: pageController,
+                            page: 4,
+                          ),
+                          DrawerTile(
+                            iconData: Icons.settings,
+                            text: Strings.usersRequestsDrawer,
+                            pageController: pageController,
+                            page: 5,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Container();
+                  }
+                },
+              )
             ],
           )
         ],

@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onSuccess() {
-    Navigator.of(context).pop();
+      Navigator.pop(context);
   }
 
   void _onFailed() {

@@ -38,9 +38,7 @@ class CartScreen extends StatelessWidget {
         ),
         body: ScopedModelDescendant<CartModel>(
           builder: (context, child, model) {
-            if (model.isLoading && UserModel.of(context).isLoggedIn()!) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (!UserModel.of(context).isLoggedIn()!) {
+            if (!UserModel.of(context).isLoggedIn()!) {
               return Container(
                 padding: const EdgeInsets.all(16),
                 child: Column(

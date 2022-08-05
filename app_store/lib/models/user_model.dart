@@ -10,6 +10,8 @@ class UserModel extends Model {
 
   bool? isLoading = false;
 
+  bool? admin = false;
+
   static UserModel of(BuildContext context) =>
       ScopedModel.of<UserModel>(context);
 
@@ -39,7 +41,6 @@ class UserModel extends Model {
       isLoading = false;
       notifyListeners();
     }).catchError((e) {
-      print('ENTROU NO SIGNUP FALHA');
       onFailed();
       isLoading = false;
       notifyListeners();
@@ -76,6 +77,7 @@ class UserModel extends Model {
     await _firebaseAuth.signOut();
     userData = {};
     firebaseUser = null;
+    admin = false;
     notifyListeners();
   }
 
@@ -88,8 +90,8 @@ class UserModel extends Model {
     FirebaseFirestore.instance
         .collection('users')
         .doc(_firebaseAuth.currentUser?.uid)
-        // .doc(firebaseUser?.user?.uid)
         .set(userData);
+    notifyListeners();
   }
 
   bool? isLoggedIn() {
@@ -106,7 +108,19 @@ class UserModel extends Model {
             .get();
         userData = docUser.data() as Map<String, dynamic>;
       }
+
+      final docAdmin = await FirebaseFirestore.instance
+          .collection('admins')
+          .doc(firebaseUser?.user?.uid)
+          .get();
+
+      if (docAdmin.exists) {
+        admin = true;
+      }
     }
     notifyListeners();
   }
+
+  bool get adminEnabled => userData != null && admin!;
+
 }
